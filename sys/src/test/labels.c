@@ -32,12 +32,12 @@ threadmain(int argc, char *argv[]) {
     sysfatal("Error initial panel");
   }
 
-  Widget *l = createLabel("label1", -1, -1);
-  Widget *l2 = createLabel("label2", 20, 120);
-  Widget *l3 = createLabel("label3", 20, 200);
-  Widget *l4 = createLabel("label4", 20, 270);
-  Widget *l5 = createLabel("label5", 20, 200);
-  Widget *l6 = createLabel("label6", -1, -1);
+  Widget *l = createLabel("label1", -1, -1, nil);
+  Widget *l2 = createLabel("label2", 20, 120, nil);
+  Widget *l3 = createLabel("label3", 20, 200, nil);
+  Widget *l4 = createLabel("label4", 20, 270, nil);
+  Widget *l5 = createLabel("label5", 20, 200, nil);
+  Widget *l6 = createLabel("label6", -1, -1, nil);
 
   Label *aux = l->w;
   aux->setText(aux, "This is a label with autosize");

@@ -130,6 +130,7 @@ struct Label {
 
   void (*setText)(Label *l, const char *text);
   char * (*gettext)(Label *l);
+  void (*setFont)(Label *l, Font *f, uint32_t *color);
 };
 
 Widget *initjayapp(char *name);
@@ -137,4 +138,4 @@ void startjayapp(Widget * w);
 void initdefaultconfig();
 Border createBorder(int size, int _3D, int up);
 Widget *createPanel(char *id, int height, int width, Point p);
-Widget *createLabel(char *id, int height, int width);
+Widget *createLabel(char *id, int height, int width, Font *fontLabel);
