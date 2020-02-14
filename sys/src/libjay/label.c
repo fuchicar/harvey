@@ -19,9 +19,10 @@ void _mPressDownLabel(Widget *w, Mouse *m);
 void _mPressUpLabel(Widget *w, Mouse *m);
 void _changeLabel(Widget *w);
 void _freeLabel(Widget *w);
+void _setFont(Label *l, Font *f, uint32_t *color);
 
 Widget *
-createLabel(char *id, int height, int width){
+createLabel(char *id, int height, int width, Font *fontLabel){
   Label *laux = malloc(sizeof(Label));
   if (laux == nil){
     return nil;
@@ -30,10 +31,13 @@ createLabel(char *id, int height, int width){
   if (w == nil){
     return nil;
   }
-  laux->f = openfont(display, jayconfig->fontPath);
-  if (laux->f == nil){
-    return nil;
+  if (fontLabel == nil){
+    fontLabel = openfont(display, jayconfig->fontPath);
+    if (fontLabel == nil){
+      return nil;
+    }
   }
+  laux->f = fontLabel;
   laux->t = nil;
   laux->backColor = jayconfig->mainBackColor;
   laux->textColor = jayconfig->mainTextColor;
@@ -41,6 +45,7 @@ createLabel(char *id, int height, int width){
   laux->w = w;
   laux->gettext=_getTextLabel;
   laux->setText=_setTextLabel;
+  laux->setFont=_setFont;
   w->_hover = _hoverLabel;
   w->_unhover = _unhoverLabel;
   w->_draw=_drawLabel;
@@ -272,4 +277,13 @@ _freeLabel(Widget *w){
   free(l);
   w->w=nil;
   freeWidget(w);
+}
+
+void
+_setFont(Label *l, Font *f, uint32_t *color){
+  if (f == nil || l == nil) {
+    return;
+  }
+  l->f = f;
+  l->w->_redraw(l->w);
 }
